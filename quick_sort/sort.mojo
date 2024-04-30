@@ -2,7 +2,7 @@
 fn _partition[
     D: DType
 ](inout vector: DynamicVector[SIMD[D, 1]], low: Int, high: Int) -> Int:
-    let pivot = vector[high]
+    var pivot = vector[high]
     var i = low - 1
     for j in range(low, high):
         if vector[j] <= pivot:
@@ -16,7 +16,7 @@ fn _quick_sort[
     D: DType
 ](inout vector: DynamicVector[SIMD[D, 1]], low: Int, high: Int):
     if low < high:
-        let pi = _partition[D](vector, low, high)
+        var pi = _partition[D](vector, low, high)
         _quick_sort[D](vector, low, pi - 1)
         _quick_sort[D](vector, pi + 1, high)
 
@@ -27,7 +27,7 @@ fn quick_sort[D: DType](inout vector: DynamicVector[SIMD[D, 1]]):
 
 @always_inline
 fn swap[D: AnyType](inout vector: Pointer[D], a: Int, b: Int):
-    let tmp = vector[a]
+    var tmp = vector[a]
     vector.store(a, vector[b])
     vector.store(b, tmp)
 
@@ -36,7 +36,7 @@ fn swap[D: AnyType](inout vector: Pointer[D], a: Int, b: Int):
 fn _partition[
     D: AnyType, lt: fn (D, D) -> Bool
 ](inout vector: Pointer[D], low: Int, high: Int) -> Int:
-    let pivot = vector[high]
+    var pivot = vector[high]
     var i = low - 1
     for j in range(low, high):
         if lt(vector[j], pivot):
@@ -51,7 +51,7 @@ fn _quick_sort[
     D: AnyType, lt: fn (D, D) -> Bool
 ](inout vector: Pointer[D], low: Int, high: Int):
     if low < high:
-        let pi = _partition[D, lt](vector, low, high)
+        var pi = _partition[D, lt](vector, low, high)
         _quick_sort[D, lt](vector, low, pi - 1)
         _quick_sort[D, lt](vector, pi + 1, high)
 
