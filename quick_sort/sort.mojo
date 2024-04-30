@@ -64,7 +64,7 @@ fn quick_sort[
 
 fn quick_sort[
     D: AnyType, lt: fn (D, D) -> Bool
-](inout vector: UnsafeFixedVector[D]):
+](inout vector: ListLiteral[D]):
     _quick_sort[D, lt](vector.data, 0, len(vector) - 1)
 
 
