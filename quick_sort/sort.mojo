@@ -1,7 +1,7 @@
 @always_inline
 fn _partition[
     D: DType
-](inout vector: DynamicVector[SIMD[D, 1]], low: Int, high: Int) -> Int:
+](inout vector: List[SIMD[D, 1]], low: Int, high: Int) -> Int:
     var pivot = vector[high]
     var i = low - 1
     for j in range(low, high):
@@ -14,14 +14,14 @@ fn _partition[
 
 fn _quick_sort[
     D: DType
-](inout vector: DynamicVector[SIMD[D, 1]], low: Int, high: Int):
+](inout vector: List[SIMD[D, 1]], low: Int, high: Int):
     if low < high:
         var pi = _partition[D](vector, low, high)
         _quick_sort[D](vector, low, pi - 1)
         _quick_sort[D](vector, pi + 1, high)
 
 
-fn quick_sort[D: DType](inout vector: DynamicVector[SIMD[D, 1]]):
+fn quick_sort[D: DType](inout vector: List[SIMD[D, 1]]):
     _quick_sort[D](vector, 0, len(vector) - 1)
 
 
@@ -70,5 +70,5 @@ fn quick_sort[
 
 fn quick_sort[
     D: AnyType, lt: fn (D, D) -> Bool
-](inout vector: DynamicVector[D]):
+](inout vector: List[D]):
     _quick_sort[D, lt](vector.data, 0, len(vector) - 1)
