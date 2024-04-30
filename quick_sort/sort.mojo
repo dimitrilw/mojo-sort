@@ -1,4 +1,5 @@
-from memory.anypointer import AnyPointer
+# from memory import AnyPointer
+# from memory.anypointer import AnyPointer
 
 @always_inline
 fn _partition[
@@ -91,4 +92,9 @@ fn quick_sort[
     # and when I try to import AnyPointer (via `from memory.anypointer import AnyPointer`),
     # then I get:
     #     unable to locate module 'anypointer'
+    # For that matter, when I try to `from memory import AnyPointer`, I get:
+    #     package 'memory' does not contain 'AnyPointer'
+    # But the stdlib source shows that AnyPointer is indeed in the memory module.
+    # ref: https://github.com/modularml/mojo/blob/main/stdlib/src/memory/__init__.mojo
+    # I'm derping hard here.
     _quick_sort[D, lt](list.data, 0, len(list) - 1)
