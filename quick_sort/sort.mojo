@@ -1,3 +1,5 @@
+from memory.anypointer import AnyPointer
+
 @always_inline
 fn _partition[
     D: DType
@@ -72,4 +74,21 @@ fn quick_sort[
 fn quick_sort[
     D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout list: List[D]):
+    # TODO: fix this
+    # It fails because there is no matching function signature for _quick_sort.
+    # This function signature is:
+    #     _q_s[
+    #         CollectionElement,
+    #         fn (CollectionElement, CollectionElement) -> Bool,
+    #     ](
+    #         AnyPointer[CollectionElement], ## <- this is the mismatch
+    #         Int,
+    #         Int,
+    #     )
+    # stdlib source shows that List.data returns an AnyPointer[T]
+    # ref: https://github.com/modularml/mojo/blob/432b2c1c966b8f2d9866d0b5257ab603aacd62d1/stdlib/src/collections/list.mojo#L82
+    # However, the _q_s function signature expects a Pointer[T] instead of an AnyPointer[T]
+    # and when I try to import AnyPointer (via `from memory.anypointer import AnyPointer`),
+    # then I get:
+    #     unable to locate module 'anypointer'
     _quick_sort[D, lt](list.data, 0, len(list) - 1)
