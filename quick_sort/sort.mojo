@@ -64,8 +64,8 @@ fn quick_sort[
 
 fn quick_sort[
     D: CollectionElement, lt: fn (D, D) -> Bool
-](inout list: ListLiteral[D]):
-    _quick_sort[D, lt](list.data, 0, len(list) - 1)
+](inout list_literal: ListLiteral[D]):
+    _quick_sort[D, lt](list_literal.data, 0, len(list) - 1)
 
 
 fn quick_sort[
