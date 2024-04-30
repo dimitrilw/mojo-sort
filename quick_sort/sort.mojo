@@ -61,11 +61,12 @@ fn quick_sort[
 ](inout list: Pointer[D], length: Int):
     _quick_sort[D, lt](list, 0, length - 1)
 
-
-fn quick_sort[
-    D: CollectionElement, lt: fn (D, D) -> Bool
-](inout list_literal: ListLiteral[D]):
-    _quick_sort[D, lt](list_literal.data, 0, len(list) - 1)
+# TODO: uncomment this block & implement the ListLiteral type
+# currently, it fails because ListLiteral does not have a data attribute
+# fn quick_sort[
+#     D: CollectionElement, lt: fn (D, D) -> Bool
+# ](inout list_literal: ListLiteral[D]):
+#     _quick_sort[D, lt](list_literal.data, 0, len(list) - 1)
 
 
 fn quick_sort[
