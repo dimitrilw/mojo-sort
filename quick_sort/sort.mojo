@@ -26,7 +26,7 @@ fn quick_sort[D: DType](inout vector: List[SIMD[D, 1]]):
 
 
 @always_inline
-fn swap[D: AnyType](inout vector: Pointer[D], a: Int, b: Int):
+fn swap[D: CollectionElement](inout vector: Pointer[D], a: Int, b: Int):
     var tmp = vector[a]
     vector.store(a, vector[b])
     vector.store(b, tmp)
@@ -34,7 +34,7 @@ fn swap[D: AnyType](inout vector: Pointer[D], a: Int, b: Int):
 
 @always_inline
 fn _partition[
-    D: AnyType, lt: fn (D, D) -> Bool
+    D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout vector: Pointer[D], low: Int, high: Int) -> Int:
     var pivot = vector[high]
     var i = low - 1
@@ -48,7 +48,7 @@ fn _partition[
 
 
 fn _quick_sort[
-    D: AnyType, lt: fn (D, D) -> Bool
+    D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout vector: Pointer[D], low: Int, high: Int):
     if low < high:
         var pi = _partition[D, lt](vector, low, high)
@@ -57,18 +57,18 @@ fn _quick_sort[
 
 
 fn quick_sort[
-    D: AnyType, lt: fn (D, D) -> Bool
+    D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout vector: Pointer[D], length: Int):
     _quick_sort[D, lt](vector, 0, length - 1)
 
 
 fn quick_sort[
-    D: AnyType, lt: fn (D, D) -> Bool
+    D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout vector: ListLiteral[D]):
     _quick_sort[D, lt](vector.data, 0, len(vector) - 1)
 
 
 fn quick_sort[
-    D: AnyType, lt: fn (D, D) -> Bool
+    D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout vector: List[D]):
     _quick_sort[D, lt](vector.data, 0, len(vector) - 1)
