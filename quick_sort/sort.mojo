@@ -1,3 +1,4 @@
+import memory
 # from memory import AnyPointer
 # from memory.anypointer import AnyPointer
 
@@ -76,13 +77,13 @@ fn quick_sort[
     D: CollectionElement, lt: fn (D, D) -> Bool
 ](inout list: List[D]):
     # TODO: fix this
-    # It fails because there is no matching function signature for _quick_sort.
+    # This fails because there is no matching function signature for _quick_sort.
     # This function signature is:
     #     _q_s[
     #         CollectionElement,
     #         fn (CollectionElement, CollectionElement) -> Bool,
     #     ](
-    #         AnyPointer[CollectionElement], ## <- this is the mismatch
+    #         AnyPointer[CollectionElement], ## <- I believe that this is the mismatch
     #         Int,
     #         Int,
     #     )
